@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercices de Géométrie : Le Losange</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff; /* Bleu ciel clair */
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50; /* Bleu foncé */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            background-color: #e7f3fe; /* Bleu très clair */
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #3498db; /* Bleu moyen */
+            border-radius: 5px;
+        }
+
+        .question p {
+            margin-top: 0;
+        }
+
+        .question strong {
+            color: #2980b9; /* Bleu un peu plus foncé */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="radio"],
+        textarea {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 60px;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+            display: block;
+            margin: 10px auto; /* Centrer le canvas */
+            max-width: 100%; /* Rendre le canvas responsive */
+            height: auto; /* Maintenir le ratio */
+        }
+
+        button {
+            background-color: #3498db; /* Bleu moyen */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto 0;
+        }
+
+        button:hover {
+            background-color: #2980b9; /* Bleu un peu plus foncé */
+        }
+
+        .options-group label {
+            font-weight: normal;
+            display: inline-block; /* Afficher les options sur la même ligne si possible */
+            margin-right: 15px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .options-group label {
+                display: block; /* Afficher chaque option sur une nouvelle ligne sur petit écran */
+                margin-bottom: 10px;
+            }
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Grille responsive */
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .grid-item canvas {
+            width: 100%;
+            height: 150px; /* Hauteur fixe pour les petits canvas de la grille */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Le Losange : À toi de jouer !</h1>
+
+        <form id="quizForm">
+            <div class="question" id="q1">
+                <p><strong>1. COLORIE les losanges en orange.</strong></p>
+                <p>Dessine sur une feuille les formes que tu vois et colorie celles qui sont des losanges.</p>
+                <div class="grid-container">
+                    <div class="grid-item"><canvas id="canvasQ1_1" width="150" height="100"></canvas></div>
+                    <div class="grid-item"><canvas id="canvasQ1_2" width="150" height="100"></canvas></div>
+                    <div class="grid-item"><canvas id="canvasQ1_3" width="150" height="100"></canvas></div>
+                    <div class="grid-item"><canvas id="canvasQ1_4" width="150" height="100"></canvas></div>
+                    <div class="grid-item"><canvas id="canvasQ1_5" width="150" height="100"></canvas></div>
+                    <div class="grid-item"><canvas id="canvasQ1_6" width="150" height="100"></canvas></div>
+                </div>
+                <label for="answer1">Quels numéros de formes as-tu coloriés ? (ex: 1, 3, 5)</label>
+                <input type="text" id="answer1" name="answer1">
+            </div>
+
+            <div class="question" id="q2">
+                <p><strong>2. Les côtés :</strong> Coche la bonne affirmation concernant les côtés d'un losange.</p>
+                <div class="options-group">
+                    <label><input type="radio" name="answer2" value="a"> Les 4 côtés sont isométriques.</label><br>
+                    <label><input type="radio" name="answer2" value="b"> Les côtés opposés sont isométriques.</label><br>
+                    <label><input type="radio" name="answer2" value="c"> 2 côtés sont parallèles.</label><br>
+                    <label><input type="radio" name="answer2" value="d"> Il a 2 fois 2 côtés parallèles.</label>
+                </div>
+            </div>
+
+            <div class="question" id="q3">
+                <p><strong>3. TRACE 2 losanges dans les quadrillages.</strong></p>
+                <p>Imagine ou dessine sur une feuille deux losanges différents en utilisant les points du quadrillage.</p>
+                <canvas id="canvasQ3_1" width="300" height="200"></canvas>
+                <canvas id="canvasQ3_2" width="200" height="150"></canvas>
+                <label for="answer3">Décris brièvement comment tu as dessiné tes losanges (combien de carreaux pour les diagonales, par exemple) :</label>
+                <textarea id="answer3" name="answer3"></textarea>
+            </div>
+
+            <div class="question" id="q4">
+                <p><strong>4. Les diagonales :</strong> Coche toutes les affirmations correctes pour les diagonales d'un losange.</p>
+                <div class="options-group">
+                    <label><input type="checkbox" name="answer4" value="a"> Elles sont isométriques.</label><br>
+                    <label><input type="checkbox" name="answer4" value="b"> Elles se coupent en leur milieu.</label><br>
+                    <label><input type="checkbox" name="answer4" value="c"> Elles sont perpendiculaires.</label><br>
+                    <label><input type="checkbox" name="answer4" value="d"> Elles sont des axes de symétrie.</label>
+                </div>
+            </div>
+
+            <div class="question" id="q5">
+                <p><strong>5. Est-ce que ces figures sont des losanges ? Oui ou non ? COCHE la bonne réponse et EXPLIQUE ton choix.</strong></p>
+                <div>
+                    <canvas id="canvasQ5_1" width="100" height="100"></canvas>
+                    <label>Figure 1:</label>
+                    <input type="radio" name="answer5_1_choice" value="oui"> Oui
+                    <input type="radio" name="answer5_1_choice" value="non"> Non
+                    <label for="answer5_1_explain">Explication :</label>
+                    <input type="text" id="answer5_1_explain" name="answer5_1_explain">
+                </div>
+                <hr>
+                <div>
+                    <canvas id="canvasQ5_2" width="150" height="100"></canvas>
+                    <label>Figure 2:</label>
+                    <input type="radio" name="answer5_2_choice" value="oui"> Oui
+                    <input type="radio" name="answer5_2_choice" value="non"> Non
+                    <label for="answer5_2_explain">Explication :</label>
+                    <input type="text" id="answer5_2_explain" name="answer5_2_explain">
+                </div>
+                <hr>
+                 <div>
+                    <canvas id="canvasQ5_3" width="100" height="120"></canvas>
+                    <label>Figure 3:</label>
+                    <input type="radio" name="answer5_3_choice" value="oui"> Oui
+                    <input type="radio" name="answer5_3_choice" value="non"> Non
+                    <label for="answer5_3_explain">Explication :</label>
+                    <input type="text" id="answer5_3_explain" name="answer5_3_explain">
+                </div>
+                <hr>
+                <div>
+                    <canvas id="canvasQ5_4" width="150" height="100"></canvas>
+                    <label>Figure 4:</label>
+                    <input type="radio" name="answer5_4_choice" value="oui"> Oui
+                    <input type="radio" name="answer5_4_choice" value="non"> Non
+                    <label for="answer5_4_explain">Explication :</label>
+                    <input type="text" id="answer5_4_explain" name="answer5_4_explain">
+                </div>
+                <hr>
+                 <div>
+                    <canvas id="canvasQ5_5" width="150" height="80"></canvas>
+                    <label>Figure 5:</label>
+                    <input type="radio" name="answer5_5_choice" value="oui"> Oui
+                    <input type="radio" name="answer5_5_choice" value="non"> Non
+                    <label for="answer5_5_explain">Explication :</label>
+                    <input type="text" id="answer5_5_explain" name="answer5_5_explain">
+                </div>
+                <hr>
+                <div>
+                    <canvas id="canvasQ5_6" width="120" height="120"></canvas>
+                    <label>Figure 6:</label>
+                    <input type="radio" name="answer5_6_choice" value="oui"> Oui
+                    <input type="radio" name="answer5_6_choice" value="non"> Non
+                    <label for="answer5_6_explain">Explication :</label>
+                    <input type="text" id="answer5_6_explain" name="answer5_6_explain">
+                </div>
+            </div>
+
+            <div class="question" id="q6">
+                <p><strong>6. REPASSE les côtés parallèles. UTILISE 2 couleurs différentes.</strong></p>
+                <p>Sur une feuille, redessine ces formes et utilise deux crayons de couleurs différentes pour marquer les paires de côtés parallèles.</p>
+                <div class="grid-container">
+                    <div class="grid-item"><canvas id="canvasQ6_1" width="150" height="80"></canvas></div>
+                    <div class="grid-item"><canvas id="canvasQ6_2" width="100" height="100"></canvas></div>
+                    <div class="grid-item"><canvas id="canvasQ6_3" width="180" height="50"></canvas></div>
+                    <div class="grid-item"><canvas id="canvasQ6_4" width="100" height="150"></canvas></div>
+                </div>
+                <label for="answer6">Décris pour chaque forme (par exemple, de gauche à droite) quelles couleurs tu as utilisées pour quelles paires de côtés :</label>
+                <textarea id="answer6" name="answer6"></textarea>
+            </div>
+
+            <div class="question" id="q7">
+                <p><strong>7. Les angles :</strong> Coche la bonne affirmation concernant les angles d'un losange.</p>
+                 <div class="options-group">
+                    <label><input type="radio" name="answer7" value="a"> Les angles sont droits.</label><br>
+                    <label><input type="radio" name="answer7" value="b"> Les angles opposés sont isométriques (de même mesure).</label><br>
+                    <label><input type="radio" name="answer7" value="c"> Tous les angles sont aigus.</label>
+                </div>
+            </div>
+
+            <div class="question" id="q8">
+                <p><strong>8. TRACE les diagonales dans ces losanges.</strong></p>
+                <p>Imagine ou dessine sur une feuille les diagonales de ces losanges.</p>
+                 <div class="grid-container">
+                    <div class="grid-item"><canvas id="canvasQ8_1" width="120" height="120"></canvas></div>
+                    <div class="grid-item"><canvas id="canvasQ8_2" width="180" height="100"></canvas></div>
+                    <div class="grid-item"><canvas id="canvasQ8_3" width="200" height="60"></canvas></div>
+                    <div class="grid-item"><canvas id="canvasQ8_4" width="200" height="80"></canvas></div>
+                </div>
+                <label for="answer8">Qu'observes-tu à propos des diagonales que tu as tracées ? (Se coupent-elles ? Où ? Sont-elles de même longueur ?)</label>
+                <textarea id="answer8" name="answer8"></textarea>
+            </div>
+
+            <div class="question" id="q9">
+                <p><strong>9. Sur le quadrillage suivant, OBSERVE les deux parallélogrammes, puis modifie-les pour qu'ils deviennent des losanges.</strong></p>
+                <p>Pour cela, tu peux imaginer déplacer certains sommets. Les côtés d'un losange doivent tous avoir la même longueur.</p>
+                <canvas id="canvasQ9_1" width="300" height="150"></canvas>
+                <canvas id="canvasQ9_2" width="300" height="150"></canvas>
+                <label for="answer9">Explique brièvement comment tu transformerais chaque parallélogramme en losange :</label>
+                <textarea id="answer9" name="answer9"></textarea>
+            </div>
+
+            <div class="question" id="q10">
+                <p><strong>10. En utilisant uniquement ton compas et une latte, poursuis le tracé d'un losange ABCD dont on te donne un des côtés [AB].</strong></p>
+                <p>Imagine que tu as un compas. Comment ferais-tu pour trouver les points C et D pour que ABCD soit un losange ? (Tous les côtés doivent avoir la longueur AB)</p>
+                <canvas id="canvasQ10" width="300" height="200"></canvas>
+                <label for="answer10">Décris les étapes pour tracer le losange avec un compas et une latte :</label>
+                <textarea id="answer10" name="answer10"></textarea>
+            </div>
+
+            <button type="button" onclick="collectAnswers()">J'ai fini, voir mes réponses !</button>
+        </form>
+
+        <div id="results" style="margin-top:30px; padding:15px; background-color:#e6ffe6; border:1px solid #90ee90; border-radius:5px; display:none;">
+            <h2>Tes réponses :</h2>
+            <pre id="answersText"></pre>
+            <p>Copie ce texte et envoie-le à ton professeur ou à la personne qui va corriger.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Fonctions pour dessiner sur les canvas (représentations simplifiées)
+
+        function drawShape(canvasId, shapeType, options = {}) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas.getContext) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.strokeStyle = "#333";
+            ctx.lineWidth = 2;
+
+            switch (shapeType) {
+                case 'rectangle':
+                    ctx.rect(options.x || 10, options.y || 10, options.w || 80, options.h || 60);
+                    break;
+                case 'losange': // Simple losange
+                    ctx.moveTo((options.x || 10) + (options.w || 80) / 2, options.y || 10);
+                    ctx.lineTo((options.x || 10) + (options.w || 80), (options.y || 10) + (options.h || 50) / 2);
+                    ctx.lineTo((options.x || 10) + (options.w || 80) / 2, (options.y || 10) + (options.h || 50));
+                    ctx.lineTo(options.x || 10, (options.y || 10) + (options.h || 50) / 2);
+                    ctx.closePath();
+                    break;
+                case 'carre':
+                    ctx.rect(options.x || 10, options.y || 10, options.s || 60, options.s || 60);
+                    break;
+                case 'triangle':
+                    ctx.moveTo(options.x1 || 10, options.y1 || 90);
+                    ctx.lineTo(options.x2 || 75, options.y2 || 10);
+                    ctx.lineTo(options.x3 || 140, options.y3 || 90);
+                    ctx.closePath();
+                    break;
+                case 'trapeze':
+                    ctx.moveTo(options.x1 || 20, options.y1 || 20); // top-left
+                    ctx.lineTo(options.x2 || 100, options.y2 || 20); // top-right
+                    ctx.lineTo(options.x3 || 130, options.y3 || 80); // bottom-right
+                    ctx.lineTo(options.x4 || 0, options.y4 || 80); // bottom-left
+                    ctx.closePath();
+                    break;
+                case 'parallelogramme':
+                    ctx.moveTo(options.x1 || 20, options.y1 || 20);
+                    ctx.lineTo(options.x2 || 100, options.y2 || 20);
+                    ctx.lineTo(options.x3 || 80, options.y3 || 70);
+                    ctx.lineTo(options.x4 || 0, options.y4 || 70);
+                    ctx.closePath();
+                    break;
+                 case 'quadrillage':
+                    const step = options.step || 20;
+                    ctx.strokeStyle = "#eee"; // Couleur plus claire pour le quadrillage
+                    for (let x = 0; x <= canvas.width; x += step) {
+                        ctx.moveTo(x, 0);
+                        ctx.lineTo(x, canvas.height);
+                    }
+                    for (let y = 0; y <= canvas.height; y += step) {
+                        ctx.moveTo(0, y);
+                        ctx.lineTo(canvas.width, y);
+                    }
+                    ctx.stroke();
+                    ctx.strokeStyle = "#333"; // Rétablir la couleur pour les formes
+                    break;
+                case 'segmentAB':
+                    ctx.beginPath();
+                    ctx.arc(50, 100, 5, 0, 2 * Math.PI); // Point A
+                    ctx.fillText("A", 45, 95);
+                    ctx.moveTo(50, 100);
+                    ctx.lineTo(150, 100); // Segment AB
+                    ctx.arc(150, 100, 5, 0, 2 * Math.PI); // Point B
+                    ctx.fillText("B", 145, 95);
+                    ctx.stroke();
+                    break;
+            }
+            ctx.stroke();
+        }
+
+        // Dessiner les formes pour Q1
+        drawShape('canvasQ1_1', 'rectangle', {x: 20, y: 20, w: 100, h:60});
+        drawShape('canvasQ1_2', 'losange', {x: 20, y: 10, w:100, h:80}); // Losange orange
+        drawShape('canvasQ1_3', 'triangle', {x1:30, y1:80, x2:75, y2:10, x3:120, y3:80});
+        drawShape('canvasQ1_4', 'losange', {x: 30, y: 15, w:60, h:70}); // Losange orange plus petit
+        drawShape('canvasQ1_5', 'carre', {x:30, y:10, s:70}); // Carré est un losange particulier
+        drawShape('canvasQ1_6', 'trapeze', {x1:30, y1:20, x2:100, y2:20, x3:120, y3:80, x4:10, y4:80});
+
+        // Dessiner quadrillages pour Q3
+        drawShape('canvasQ3_1', 'quadrillage');
+        drawShape('canvasQ3_2', 'quadrillage');
+
+        // Dessiner formes pour Q5
+        drawShape('canvasQ5_1', 'carre', {x:20, y:20, s:60}); // carré
+        drawShape('canvasQ5_2', 'parallelogramme', {x1:10,y1:10, x2:100, y2:10, x3:140, y3:90, x4:50, y4:90 }); // Parallélogramme non losange
+        drawShape('canvasQ5_3', 'triangle', {x1:10, y1:110, x2:50, y2:10, x3:90, y3:110}); // triangle
+        drawShape('canvasQ5_4', 'trapeze', {x1:20, y1:10, x2:130, y2:10, x3:100, y3:90, x4:50, y4:90}); // trapèze
+        drawShape('canvasQ5_5', 'losange', {x:10, y:10, w:130, h:60}); // losange
+        drawShape('canvasQ5_6', 'parallelogramme', {x1:30, y1:10, x2:90, y2:10, x3:60, y3:110, x4:0, y4:110}); // "cerf-volant" / parallélogramme non losange
+
+        // Dessiner formes pour Q6 (REPASSE les côtés parallèles)
+        drawShape('canvasQ6_1', 'losange', {x:10, y:10, w:130, h:60}); // Losange classique
+        drawShape('canvasQ6_2', 'losange', {x:20, y:10, w:60, h:80}); // Losange plus droit
+        drawShape('canvasQ6_3', 'losange', {x:10, y:10, w:160, h:30}); // Losange très étiré
+        drawShape('canvasQ6_4', 'losange', {x:10, y:10, w:80, h:130}); // Losange très haut
+
+        // Dessiner formes pour Q8 (TRACE les diagonales)
+        drawShape('canvasQ8_1', 'losange', {x:10, y:10, w:100, h:100});
+        drawShape('canvasQ8_2', 'losange', {x:10, y:10, w:160, h:80});
+        drawShape('canvasQ8_3', 'losange', {x:10, y:10, w:180, h:40});
+        drawShape('canvasQ8_4', 'losange', {x:10, y:10, w:180, h:60});
+
+        // Dessiner formes pour Q9 (Parallélogrammes sur quadrillage)
+        const canvasQ9_1 = document.getElementById('canvasQ9_1');
+        const ctxQ9_1 = canvasQ9_1.getContext('2d');
+        drawShape('canvasQ9_1', 'quadrillage', {step: 20});
+        ctxQ9_1.beginPath();
+        ctxQ9_1.moveTo(40, 110); // Point bas gauche
+        ctxQ9_1.lineTo(120, 110); // Point bas droit
+        ctxQ9_1.lineTo(160, 50);  // Point haut droit
+        ctxQ9_1.lineTo(80, 50);   // Point haut gauche
+        ctxQ9_1.closePath();
+        ctxQ9_1.stroke();
+
+        const canvasQ9_2 = document.getElementById('canvasQ9_2');
+        const ctxQ9_2 = canvasQ9_2.getContext('2d');
+        drawShape('canvasQ9_2', 'quadrillage', {step: 20});
+        ctxQ9_2.beginPath();
+        ctxQ9_2.moveTo(60, 100);
+        ctxQ9_2.lineTo(180, 100);
+        ctxQ9_2.lineTo(220, 40);
+        ctxQ9_2.lineTo(100, 40);
+        ctxQ9_2.closePath();
+        ctxQ9_2.stroke();
+
+        // Dessiner pour Q10 (Tracé au compas)
+        drawShape('canvasQ10', 'segmentAB');
+
+
+        function collectAnswers() {
+            const form = document.getElementById('quizForm');
+            let collectedText = "Réponses au Quiz sur le Losange:\n\n";
+
+            // Q1
+            collectedText += "1. COLORIE les losanges en orange.\n";
+            collectedText += "   Formes coloriées : " + form.answer1.value + "\n\n";
+
+            // Q2
+            collectedText += "2. Les côtés :\n";
+            const answer2 = form.querySelector('input[name="answer2"]:checked');
+            collectedText += "   Affirmation choisie : " + (answer2 ? answer2.parentElement.textContent.trim() : "Non répondu") + "\n\n";
+
+            // Q3
+            collectedText += "3. TRACE 2 losanges dans les quadrillages.\n";
+            collectedText += "   Description : " + form.answer3.value + "\n\n";
+
+            // Q4
+            collectedText += "4. Les diagonales :\n";
+            const answer4 = form.querySelectorAll('input[name="answer4"]:checked');
+            if (answer4.length > 0) {
+                collectedText += "   Affirmations choisies :\n";
+                answer4.forEach(cb => {
+                    collectedText += "      - " + cb.parentElement.textContent.trim() + "\n";
+                });
+            } else {
+                collectedText += "   Aucune affirmation choisie.\n";
+            }
+            collectedText += "\n";
+
+            // Q5
+            collectedText += "5. Est-ce que ces figures sont des losanges ?\n";
+            for (let i = 1; i <= 6; i++) {
+                const choice = form.querySelector(`input[name="answer5_${i}_choice"]:checked`);
+                const explain = form[`answer5_${i}_explain`].value;
+                collectedText += `   Figure ${i} : ` + (choice ? choice.value.toUpperCase() : "Non répondu") + "\n";
+                collectedText += `      Explication : ${explain}\n`;
+            }
+            collectedText += "\n";
+
+            // Q6
+            collectedText += "6. REPASSE les côtés parallèles.\n";
+            collectedText += "   Description : " + form.answer6.value + "\n\n";
+
+            // Q7
+            collectedText += "7. Les angles :\n";
+            const answer7 = form.querySelector('input[name="answer7"]:checked');
+            collectedText += "   Affirmation choisie : " + (answer7 ? answer7.parentElement.textContent.trim() : "Non répondu") + "\n\n";
+
+            // Q8
+            collectedText += "8. TRACE les diagonales dans ces losanges.\n";
+            collectedText += "   Observation : " + form.answer8.value + "\n\n";
+
+            // Q9
+            collectedText += "9. Modifie les parallélogrammes en losanges.\n";
+            collectedText += "   Explication : " + form.answer9.value + "\n\n";
+
+            // Q10
+            collectedText += "10. Poursuis le tracé d'un losange ABCD.\n";
+            collectedText += "    Étapes : " + form.answer10.value + "\n\n";
+
+
+            document.getElementById('answersText').textContent = collectedText;
+            document.getElementById('results').style.display = 'block';
+        }
+
+    </script>
+</body>
+</html>
